@@ -4,6 +4,7 @@ import com.example.CLI.Commands.Operation;
 import com.example.CLI.Commands.Result;
 import com.example.CLI.Parser.Rules.Rule;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,27 +22,28 @@ public class Parser {
 
     @NotNull
     public Operation parse(@NotNull String input) {
-        return parse(input, rules.size() - 1);
+        return parse(input, rules.size() - 1, null);
     }
 
     @NotNull
-    private Operation parse(@NotNull String input, int level) {
+    private Operation parse(@NotNull String input, int level, @Nullable Rule.Type targetType) {
         for (int i = level; i >= 0; i--) {
             var rule = rules.get(i);
-            if (rule.isMatching(input)) {
-                // System.out.println("Rule " + rule.getLevel() + " matched on input: \'" + input + "\'");
+            if (targetType != null && rule.getType() != targetType) {
+                continue;
+            } else if (rule.isMatching(input)) {
                 var parts = rule.split(input);
                 var args = new ArrayList<Operation>();
                 switch (rule.getType()) {
                     case SPECIAL: {
                         for (var string: parts) {
-                            args.add(parse(string, i));
+                            args.add(parse(string, i, null));
                         }
                         break;
                     }
                     case COMMAND: {
                         for (var string: parts) {
-                            args.add(parse(string, i - 1));
+                            args.add(parse(string, i - 1, Rule.Type.WORD));
                         }
                         break;
                     }
@@ -53,8 +55,6 @@ public class Parser {
                 return rule.createOperation(args);
             }
         }
-
-        //System.out.println("Got: \'" + input + "\'");
 
         return new Operation() {
             @Override

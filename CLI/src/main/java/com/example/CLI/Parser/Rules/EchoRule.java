@@ -5,21 +5,10 @@ import com.example.CLI.Commands.Operation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
-public class EchoRule implements Rule {
+public class EchoRule extends CommandRule {
 
-    private static final String regex = "\\s*echo(\\s+\\w+)*\\s*";
-    @NotNull static private Pattern word;
-
-    static {
-        word = Pattern.compile("\\w+");
-    }
-
-    @Override @NotNull
-    public Type getType() {
-        return Type.COMMAND;
-    }
+    private static final String regex = "\\s*echo(\\s+[\\w./+=()*~\\-]+)*\\s*";
 
     @Override @NotNull
     public Integer getLevel() {
@@ -31,25 +20,18 @@ public class EchoRule implements Rule {
         return input.matches(regex);
     }
 
-    @NotNull
-    @Override
+    @Override @NotNull
     public ArrayList<String> split(@NotNull String input) {
-        if (!input.matches(regex)) {
-            throw new IllegalStateException("Input does not match with rule.");
+        var strings = super.split(input);
+        if (strings.get(0).equals("echo")) {
+            strings.remove(0);
+            return strings;
+        } else {
+            throw new IllegalStateException("Input does not match with rule for command \'echo\'");
         }
-
-        var matcher = word.matcher(input);
-        var result = new ArrayList<String>();
-        matcher.find();  // skip command name
-        while (matcher.find()) {
-            result.add(input.substring(matcher.start(), matcher.end()));
-        }
-
-        return result;
     }
 
-    @NotNull
-    @Override
+    @Override @NotNull
     public Operation createOperation(ArrayList<Operation> args) {
         var echo = new Echo();
         echo.setArgs(args);

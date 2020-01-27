@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 public class LiteralRule implements Rule {
 
-    private static final String regex = "\\s*\\w+\\s*";
+    private static final String regex = "\\s*[\\w./+=()*~\\-]+\\s*";
     @NotNull static private Pattern word;
     @Nullable private String literal;
 
     static {
-        word = Pattern.compile("\\w+");
+        word = Pattern.compile("[\\w./+=()*~\\-]+");
     }
 
     @Override @NotNull

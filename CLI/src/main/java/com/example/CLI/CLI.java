@@ -1,20 +1,28 @@
 package com.example.CLI;
 
 import com.example.CLI.Commands.Result;
+import com.example.CLI.Environment.SimpleContext;
 import com.example.CLI.Parser.Parser;
 import com.example.CLI.Parser.Rules.EchoRule;
 import com.example.CLI.Parser.Rules.LiteralRule;
 import com.example.CLI.Parser.Rules.Rule;
+import com.example.CLI.Parser.Rules.UndefinedRule;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class CLI {
 
     static public void main(String[] args) {
+        var commands = new HashMap<String, String>();
+        commands.put("echo", "1");
+        var context = new SimpleContext(commands);
+
         var rules = new ArrayList<Rule>();
         rules.add(new EchoRule());
+        rules.add(new UndefinedRule(context));
         rules.add(new LiteralRule());
         var parser = new Parser(rules);
 
