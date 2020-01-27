@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
 
 public abstract class CommandRule implements Rule {
 
-    protected static final String regex = "\\s*[\\w./+=()*~\\-]+(\\s+[\\w./+=()*~\\-]+)*\\s*";
+    protected static final String regex = "\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*";
     @NotNull static private Pattern word;
 
     static {
-        word = Pattern.compile("[\\w./+=()*~\\-]+");
+        word = Pattern.compile("[\\w./+=()*~$\\-]+");
     }
 
     @Override @NotNull

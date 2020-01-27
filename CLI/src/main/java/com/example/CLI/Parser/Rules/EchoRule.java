@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EchoRule extends CommandRule {
 
-    private static final String regex = "\\s*echo(\\s+[\\w./+=()*~\\-]+)*\\s*";
+    private static final String regex = "\\s*echo(\\s+[\\w./+=()*~$\\-]+)*\\s*";
 
     @Override @NotNull
     public Integer getLevel() {
