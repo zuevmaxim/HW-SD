@@ -16,16 +16,7 @@ import java.util.Scanner;
 public class CLI {
 
     static public void main(String[] args) {
-        var commands = new HashMap<String, String>();
-        commands.put("echo", "1");
-        var context = new SimpleContext(commands);
-
-        var rules = new ArrayList<Rule>();
-        rules.add(new EchoRule());
-        rules.add(new UndefinedRule(context));
-        rules.add(new LiteralRule());
-        var parser = new Parser(rules);
-
+        var parser = createParser();
         var scanner = new Scanner(System.in);
         var input = scanner.nextLine();
         printResult(parser.parse(input).execute());
@@ -40,5 +31,18 @@ public class CLI {
                 System.out.println("\u001B[31m" + error + "\u001B[0m");
             }
         }
+    }
+
+    static private Parser createParser() {
+        var commands = new HashMap<String, String>();
+        commands.put("echo", "com.example.CLI.Commands.Echo");
+        var context = new SimpleContext(commands);
+
+        var rules = new ArrayList<Rule>();
+        rules.add(new EchoRule());
+        rules.add(new UndefinedRule(context));
+        rules.add(new LiteralRule());
+
+        return new Parser(rules);
     }
 }
