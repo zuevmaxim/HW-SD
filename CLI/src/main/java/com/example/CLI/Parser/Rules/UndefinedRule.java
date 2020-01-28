@@ -28,10 +28,9 @@ public class UndefinedRule extends CommandRule {
 
     @Override @NotNull
     public Operation createOperation(ArrayList<Operation> args) {
-        var command = new Undefined(args.get(0));
+        var command = new Undefined(context, args.get(0));
         args.remove(0);
         command.setArgs(args);
-        command.setContext(context);
 
         return command;
     }

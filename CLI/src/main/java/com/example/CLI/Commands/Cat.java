@@ -1,7 +1,6 @@
 package com.example.CLI.Commands;
 
 import com.example.CLI.Environment.Informant;
-import com.example.CLI.Environment.Informed;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
@@ -11,7 +10,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 
-public class Cat implements Command, Informed {
+public class Cat implements Command {
 
     @NotNull private ArrayList<Operation> args;
     @NotNull private Informant informant;
@@ -49,10 +48,5 @@ public class Cat implements Command, Informed {
     @Override
     public void setArgs(@NotNull ArrayList<Operation> args) {
         this.args = args;
-    }
-
-    @Override
-    public void setInformant(@NotNull Informant informant) {
-        this.informant = informant;
     }
 }

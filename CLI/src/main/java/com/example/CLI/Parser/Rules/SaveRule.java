@@ -67,8 +67,6 @@ public class SaveRule implements Rule {
             throw new IllegalStateException("split() method should be called before splitting.");
         }
 
-        var command = new Save(name, args.get(0));
-        command.setContext(context);
-        return command;
+        return new Save(context, name, args.get(0));
     }
 }

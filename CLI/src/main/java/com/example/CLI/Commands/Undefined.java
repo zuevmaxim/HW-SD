@@ -1,31 +1,26 @@
 package com.example.CLI.Commands;
 
 import com.example.CLI.Environment.Context;
-import com.example.CLI.Environment.Contextual;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
 
-public class Undefined implements Command, Contextual {
+public class Undefined implements Command {
 
     @NotNull private Operation name;
-    @Nullable private Context context;
+    @NotNull private Context context;
     @NotNull private ArrayList<Operation> args;
 
-    public Undefined(@NotNull Operation name) {
+    public Undefined(@NotNull Context context, @NotNull Operation name) {
         this.name = name;
         args = new ArrayList<>();
-        context = null;
+        this.context = context;
     }
 
     @Override
     public Result execute() {
-        if (context == null) {
-            throw new IllegalStateException("Context should be defined.");
-        }
-
         var result = name.execute();
         if (result.getOutput().size() == 0) {
             return new Result(new ArrayList<>(), result.getErrors());
@@ -42,10 +37,5 @@ public class Undefined implements Command, Contextual {
     @Override
     public void setArgs(@NotNull ArrayList<Operation> args) {
         this.args = args;
-    }
-
-    @Override
-    public void setContext(@NotNull Context context) {
-        this.context = context;
     }
 }

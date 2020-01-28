@@ -63,9 +63,6 @@ public class ExtractRule implements Rule {
             throw new IllegalStateException("split() method should be called before splitting.");
         }
 
-        var operation = new Extract(name);
-        operation.setContext(context);
-
-        return operation;
+        return new Extract(context, name);
     }
 }
