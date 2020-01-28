@@ -1,9 +1,11 @@
 package com.example.CLI;
 
+import com.example.CLI.Commands.Cat;
 import com.example.CLI.Commands.Command;
 import com.example.CLI.Commands.Echo;
 import com.example.CLI.Commands.Result;
 import com.example.CLI.Environment.SimpleContext;
+import com.example.CLI.Environment.SimpleInformant;
 import com.example.CLI.Parser.Parser;
 import com.example.CLI.Parser.Rules.*;
 import org.jetbrains.annotations.NotNull;
@@ -38,12 +40,15 @@ public class CLI {
 
     static private Parser createParser() {
         var commands = new HashMap<String, Supplier<Command>>();
-        commands.put("echo", Echo::new);
         var context = new SimpleContext(commands);
+        var informant = new SimpleInformant();
+        commands.put("echo", Echo::new);
+        commands.put("cat", () -> new Cat(informant));
 
         var rules = new ArrayList<Rule>();
         rules.add(new SaveRule(context));
         rules.add(new EchoRule());
+        rules.add(new CatRule(informant));
         rules.add(new UndefinedRule(context));
         rules.add(new ExtractRule(context));
         rules.add(new LiteralRule());
