@@ -1,39 +1,34 @@
 package com.example.CLI.Commands;
 
+import com.example.CLI.Environment.Informant;
+import com.example.CLI.Environment.Informed;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class External implements Command {
+public class External implements Command, Informed {
 
     @NotNull private String name;
     @NotNull private ArrayList<Operation> args;
+    @NotNull private ArrayList<String> connections;
+    @NotNull private Informant informant;
 
-    public External(@NotNull String fullName) {
+    public External(@NotNull String fullName, @NotNull Informant informant) {
         name = fullName;
         args = new ArrayList<>();
+        connections = new ArrayList<>();
+        this.informant = informant;
     }
 
     @Override
     public Result execute() {
-        var command = new ArrayList<String>();
-        var errors = new ArrayList<String>();
-        command.add(name);
-        for (var operation: args) {
-            var result = operation.execute();
-            if (result.getOutput().size() > 0) {
-                command.add(result.getOutput().get(0));
-            }
-            errors.addAll(result.getErrors());
-        }
-
         var result = new Result();
-        result.addErrors(errors);
+
         try {
-            var process = Runtime.getRuntime().exec(command.toArray(new String[0]));
+            var process = createProcess(result);
             var stdout = new Scanner(process.getInputStream());
             var stderr = new Scanner(process.getErrorStream());
 
@@ -46,14 +41,50 @@ public class External implements Command {
 
             return result;
         } catch (IOException e) {
-            errors.add("Can't run external program \'" + name + "\'.");
-
-            return new Result(new ArrayList<>(), errors);
+            result.addError("Can't run external program \'" + name + "\'.");
+            return result;
         }
+    }
+
+    @NotNull
+    private Process createProcess(@NotNull Result result) throws IOException {
+        var command = new ArrayList<String>();
+        command.add(name);
+        for (var operation: args) {
+            var argResult = operation.execute();
+            if (argResult.getOutput().size() > 0) {
+                command.add(argResult.getOutput().get(0));
+            }
+            result.addErrors(result.getErrors());
+        }
+        var processBuilder = new ProcessBuilder(command);
+
+        if (connections.size() > 0) {
+            try {
+                var tempFile = File.createTempFile("cli-", "-temp");
+                tempFile.deleteOnExit();
+                var writer = new FileWriter(tempFile);
+                for (var conn: connections) {
+                    writer.write(new String(informant.getAndClose(conn)));
+                }
+                writer.close();
+
+                processBuilder.redirectInput(tempFile);
+            } catch (IOException e) {
+                result.addError("Can't create temp file for connection.");
+            }
+        }
+
+        return processBuilder.start();
     }
 
     @Override
     public void setArgs(@NotNull ArrayList<Operation> args) {
         this.args = args;
+    }
+
+    @Override
+    public void addConnection(@NotNull String name) {
+        connections.add(name);
     }
 }

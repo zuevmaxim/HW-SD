@@ -22,13 +22,23 @@ public class Parser {
 
     @NotNull
     public Operation parse(@NotNull String input) {
-        return parse(input, rules.size() - 1, null);
+        return parse(input, 100, null);
     }
 
     @NotNull
     private Operation parse(@NotNull String input, int level, @Nullable Rule.Type targetType) {
-        for (int i = level; i >= 0; i--) {
+        int start = rules.size() - 1;
+        for (var rule: rules) {
+            if (rule.getLevel() > level) {
+                start--;
+            } else {
+                break;
+            }
+        }
+
+        for (int i = start; i >= 0; i--) {
             var rule = rules.get(i);
+
             if (targetType != null && rule.getType() != targetType) {
                 continue;
             } else if (rule.isMatching(input)) {
@@ -48,6 +58,9 @@ public class Parser {
                         break;
                     }
                     case WORD: {
+                        for (var string: parts) {
+                            args.add(parse(string, i - 1, Rule.Type.WORD));
+                        }
                         break;
                     }
                 }

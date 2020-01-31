@@ -19,10 +19,10 @@ public class SimpleInformant implements Informant {
     }
 
     @Override @NotNull
-    public Result createConnection() {
+    public String createConnection() {
         var name = UUID.randomUUID().toString();
         dataSource.put(name, new byte[0]);
-        return new Result(new ArrayList<>(Collections.singletonList(name)), new ArrayList<>());
+        return name;
     }
 
     @Override

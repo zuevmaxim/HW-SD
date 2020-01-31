@@ -1,12 +1,10 @@
 package com.example.CLI.Environment;
 
-import com.example.CLI.Commands.Command;
-import com.example.CLI.Commands.External;
-import com.example.CLI.Commands.Literal;
-import com.example.CLI.Commands.Operation;
+import com.example.CLI.Commands.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 
@@ -14,10 +12,12 @@ public class SimpleContext implements Context {
 
     @NotNull private HashMap<String, Operation> localVariables;
     @NotNull private HashMap<String, Supplier<Command>> localCommands;
+    @NotNull private Function<String, Command> externalCommand;
 
-    public SimpleContext(@NotNull HashMap<String, Supplier<Command>> localCommands) {
+    public SimpleContext(@NotNull HashMap<String, Supplier<Command>> localCommands, @NotNull Function<String, Command> externalCommand) {
         localVariables = new HashMap<>();
         this.localCommands = localCommands;
+        this.externalCommand = externalCommand;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SimpleContext implements Context {
         if (localCommands.containsKey(name)) {
             return localCommands.get(name).get();
         } else {
-            return new External(name);
+            return externalCommand.apply(name);
         }
     }
 }
