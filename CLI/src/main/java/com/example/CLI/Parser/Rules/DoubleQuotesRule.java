@@ -9,7 +9,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для литералов, обернутых в двойные кавычки.
+ */
 public class DoubleQuotesRule implements Rule {
 
     private static final String regex = "\\s*\"(\\\\\"|[^\\\\\"])+\"\\s*";

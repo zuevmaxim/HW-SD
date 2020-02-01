@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * Класс-оболочка для литералов с правилом full quoting.
+ */
 public class Literal implements Operation {
 
     @NotNull private String string;

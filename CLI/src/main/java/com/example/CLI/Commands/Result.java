@@ -4,6 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+/**
+ * Класс-оболочка для результатов выполнения всех объектов в языке. Содержит строчки вывода и ошибок выполненной команды.
+ */
 public class Result {
 
      @NotNull private ArrayList<String> out;

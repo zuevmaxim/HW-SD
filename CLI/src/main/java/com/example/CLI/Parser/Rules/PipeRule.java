@@ -9,7 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для pipe'а.
+ */
 public class PipeRule implements Rule {
 
     protected static final String regex =

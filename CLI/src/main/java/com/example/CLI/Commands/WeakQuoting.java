@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
 
+/**
+ * Класс-обертка для литералов с правилом weak quoting.
+ */
 public class WeakQuoting implements Operation {
 
     @NotNull private String string;

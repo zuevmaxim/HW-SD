@@ -9,7 +9,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.UUID;
 
-
+/**
+ * Класс "информатор", описывающий обмен данными.
+ */
 public class SimpleInformant implements Informant {
 
     @NotNull private HashMap<String, byte[]> dataSource;

@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * Класс, описывающий поведение команды 'echo'.
+ */
 public class Echo implements Command {
 
     @NotNull private ArrayList<Operation> args;

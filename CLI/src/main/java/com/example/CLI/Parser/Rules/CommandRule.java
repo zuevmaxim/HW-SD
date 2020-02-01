@@ -9,7 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для комманд.
+ */
 public class CommandRule implements Rule {
 
     @NotNull private Context context;

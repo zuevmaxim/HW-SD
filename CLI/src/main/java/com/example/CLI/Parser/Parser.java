@@ -10,21 +10,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
+/**
+ * Парсер, распознающий ввод.
+ */
 public class Parser {
 
     @NotNull private ArrayList<Rule> rules;
 
+    /**
+     * Конструктор.
+     * @param rules - список правил, которыми будет пользоваться парсер при разборе ввода
+     */
     public Parser(@NotNull ArrayList<Rule> rules) {
         rules.sort(Comparator.comparing(Rule::getLevel));
         this.rules = rules;
     }
 
+    /**
+     * Строит дерево разбора.
+     * @param input - строка ввода
+     * @return корень построенного дерева
+     */
     @NotNull
     public Operation parse(@NotNull String input) {
         return parse(input, 100, null);
     }
 
+    /**
+     * Строит дерево разбора.
+     * @param input - строка ввода
+     * @param level - максимальный уровень правил для разбора
+     * @param targetType - тип правил для разбора (если null, то использует все правила)
+     * @return корень построенного дерева
+     */
     @NotNull
     private Operation parse(@NotNull String input, int level, @Nullable Rule.Type targetType) {
         int start = rules.size() - 1;

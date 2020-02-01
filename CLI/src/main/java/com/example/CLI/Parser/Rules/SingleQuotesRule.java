@@ -8,7 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для литералов, обернутых в одинарные кавычки.
+ */
 public class SingleQuotesRule implements Rule {
     private static final String regex = "\\s*'[^']+'\\s*";
     @NotNull static private Pattern word;

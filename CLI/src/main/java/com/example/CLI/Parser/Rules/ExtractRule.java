@@ -9,7 +9,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для операций '$'.
+ */
 public class ExtractRule implements Rule {
 
     @NotNull private Context context;

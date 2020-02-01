@@ -8,7 +8,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
-
+/**
+ * Класс-обертка для любой команды. При вызове метода {@link Undefined#execute()} ищет соответствующую команду в контексте.
+ */
 public class Undefined implements Command, Informed {
 
     @NotNull private Operation name;

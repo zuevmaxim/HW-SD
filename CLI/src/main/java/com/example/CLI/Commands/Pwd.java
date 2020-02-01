@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Класс, описывающий поведение команды pwd.
+ */
 public class Pwd implements Command {
     @Override
     public Result execute() {

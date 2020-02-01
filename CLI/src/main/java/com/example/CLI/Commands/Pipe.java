@@ -5,10 +5,11 @@ import com.example.CLI.Environment.Informed;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-
-public class Pipe implements Command {
+/**
+ * Класс, описывающий поведение pipe'ов.
+ */
+public class Pipe implements Operation {
 
     @NotNull private Informant informant;
     @NotNull private Command from;
@@ -48,10 +49,5 @@ public class Pipe implements Command {
             result.appendResult(to.execute());
             return result;
         }
-    }
-
-    @Override
-    public void setArgs(@NotNull ArrayList<Operation> args) {
-        // Useless for this particular command.
     }
 }

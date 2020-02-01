@@ -9,7 +9,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-
+/**
+ * Правило для нераспознанных литералов.
+ */
 public class LiteralRule implements Rule {
 
     private static final String regex = "\\s*[^\\s]+\\s*";

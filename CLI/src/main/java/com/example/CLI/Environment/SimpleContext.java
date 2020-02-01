@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-
+/**
+ * Контекст выполнения комманд.
+ * Содержит в себе переменные окружения и внутренние команды.
+ */
 public class SimpleContext implements Context {
 
     @NotNull private HashMap<String, Operation> localVariables;

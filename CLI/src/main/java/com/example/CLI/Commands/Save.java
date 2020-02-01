@@ -3,10 +3,10 @@ package com.example.CLI.Commands;
 import com.example.CLI.Environment.Context;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
-
-public class Save implements Command {
+/**
+ * Класс, описывающий поведение оператора '='.
+ */
+public class Save implements Operation {
 
     @NotNull private String variable;
     @NotNull private Operation value;
@@ -23,10 +23,5 @@ public class Save implements Command {
         context.setValue(variable, value);
 
         return new Result();
-    }
-
-    @Override
-    public void setArgs(@NotNull ArrayList<Operation> args) {
-        // Useless for this particular command
     }
 }

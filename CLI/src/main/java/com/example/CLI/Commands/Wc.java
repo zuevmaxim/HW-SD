@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-
+/**
+ * Класс, описывающий поведение команды 'wc'.
+ */
 public class Wc implements Command, Informed {
 
     @NotNull private Informant informant;

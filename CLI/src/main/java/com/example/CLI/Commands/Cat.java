@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-
+/**
+ * Класс, описывающий поведение команды 'cat'.
+ */
 public class Cat implements Command, Informed {
 
     @NotNull private ArrayList<Operation> args;

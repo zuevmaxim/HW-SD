@@ -8,7 +8,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Класс, описывающий поведение внешней команды.
+ */
 public class External implements Command, Informed {
 
     @NotNull private String name;
@@ -46,6 +48,12 @@ public class External implements Command, Informed {
         }
     }
 
+    /**
+     * Создает процесс, исполняющий внешнюю команду.
+     * @param result - объект класса Result, в который будут класть ошибки при запуске аргументов {@link External#args}
+     * @return созданный процесс
+     * @throws IOException - если внешнюю команду не удалось запустить
+     */
     @NotNull
     private Process createProcess(@NotNull Result result) throws IOException {
         var command = new ArrayList<String>();
