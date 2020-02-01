@@ -30,7 +30,7 @@ public class ParserBuilder {
         rules.add(new ExtractRule(context));
         rules.add(new DoubleQuotesRule(context));
         rules.add(new SingleQuotesRule());
-        rules.add(new LiteralRule());
+        rules.add(new LiteralRule(context));
 
         return new Parser(rules);
     }

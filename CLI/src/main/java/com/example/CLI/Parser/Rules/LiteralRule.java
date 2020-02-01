@@ -1,21 +1,28 @@
 package com.example.CLI.Parser.Rules;
 
-import com.example.CLI.Commands.Literal;
 import com.example.CLI.Commands.Operation;
+import com.example.CLI.Commands.WeakQuoting;
+import com.example.CLI.Environment.Context;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+
 public class LiteralRule implements Rule {
 
-    private static final String regex = "\\s*[\\w./+=()*~\\-]+\\s*";
+    private static final String regex = "\\s*[^\\s]+\\s*";
     @NotNull static private Pattern word;
     @Nullable private String literal;
+    @NotNull private Context context;
 
     static {
-        word = Pattern.compile("[\\w./+=()*~\\-]+");
+        word = Pattern.compile("[^\\s]+");
+    }
+
+    public LiteralRule(@NotNull Context context) {
+        this.context = context;
     }
 
     @Override @NotNull
@@ -54,6 +61,6 @@ public class LiteralRule implements Rule {
             throw new IllegalStateException("Can't create Operation.");
         }
 
-        return new Literal(literal);
+        return new WeakQuoting(context, literal);
     }
 }
