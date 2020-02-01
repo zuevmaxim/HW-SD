@@ -42,7 +42,6 @@ public class Parser {
             if (targetType != null && rule.getType() != targetType) {
                 continue;
             } else if (rule.isMatching(input)) {
-                System.out.println(rule.getClass().getSimpleName() + " match " + input);
                 var parts = rule.split(input);
                 var args = new ArrayList<Operation>();
                 switch (rule.getType()) {
