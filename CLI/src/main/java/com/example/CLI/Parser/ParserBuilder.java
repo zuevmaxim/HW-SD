@@ -32,6 +32,7 @@ public class ParserBuilder {
         rules.add(new WcRule(informant));
         rules.add(new UndefinedRule(context, informant));
         rules.add(new ExtractRule(context));
+        rules.add(new DoubleQuotesRule(context));
         rules.add(new SingleQuotesRule());
         rules.add(new LiteralRule());
 

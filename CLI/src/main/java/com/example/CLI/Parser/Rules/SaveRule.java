@@ -12,13 +12,15 @@ import java.util.regex.Pattern;
 
 public class SaveRule implements Rule {
 
-    private static final String regex = "\\s*[\\w./+()*~\\-]+\\s*=\\s*([\\w./+()*~\\-]+|'[^']+')\\s*";
+    private static final String regex =
+            "\\s*[\\w./+()*~\\-]+\\s*=" +
+            "\\s*([\\w./+()*~\\-]+|'[^']+'|\"(\\\\\"|[^\\\\])+\")\\s*";
     @Nullable private String name;
     @NotNull private Context context;
     @NotNull static private Pattern word;
 
     static {
-        word = Pattern.compile("[\\w./+()*~\\-]+|'[^']+'");
+        word = Pattern.compile("[\\w./+()*~\\-]+|'[^']+'|\"(\\\\\"|[^\\\\])+\"");
     }
 
     public SaveRule(@NotNull Context context) {
