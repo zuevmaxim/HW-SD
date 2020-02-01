@@ -13,17 +13,18 @@ import java.util.regex.Pattern;
 public class PipeRule implements Rule {
 
     protected static final String regex =
-            "(\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*\\|)+" +
-            "(\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*)";
+            "(\\s*[^|\\s]+(\\s+[^|\\s]+)*\\s*\\|)+" +
+            "(\\s*[^|\\s]+(\\s+[^|\\s]+)*\\s*)";
     @NotNull static private Pattern leftArg;
     @NotNull static private Pattern leftPart;
     @NotNull private Informant informant;
 
     static {
         leftArg = Pattern.compile(
-                "(\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*\\|)*" +
-                "(\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*)");
-        leftPart = Pattern.compile("(\\s*[\\w./+=()*~$\\-]+(\\s+[\\w./+=()*~$\\-]+)*\\s*\\|)+");
+                "(\\s*[^|\\s]+(\\s+[^|\\s]+)*\\s*\\|)*" +
+                "(\\s*[^|\\s]+(\\s+[^|\\s]+)*\\s*)"
+        );
+        leftPart = Pattern.compile("(\\s*[^|\\s]+(\\s+[^|\\s]+)*\\s*\\|)+");
     }
 
     public PipeRule(@NotNull Informant informant) {
