@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
  * Правило для литералов, обернутых в одинарные кавычки.
  */
 public class SingleQuotesRule implements Rule {
-    private static final String regex = "\\s*'[^']+'\\s*";
+    private static final String regex = "\\s*'[^']*'\\s*";
     @NotNull static private Pattern word;
     @Nullable
     private String literal;
 
     static {
-        word = Pattern.compile("'[^']+'");
+        word = Pattern.compile("'[^']*'");
     }
 
     @Override @NotNull

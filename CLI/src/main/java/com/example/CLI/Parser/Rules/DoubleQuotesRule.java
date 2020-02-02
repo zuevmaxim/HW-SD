@@ -14,13 +14,13 @@ import java.util.regex.Pattern;
  */
 public class DoubleQuotesRule implements Rule {
 
-    private static final String regex = "\\s*\"(\\\\\"|[^\\\\\"])+\"\\s*";
+    private static final String regex = "\\s*\"(\\\\\"|[^\\\\\"])*\"\\s*";
     @NotNull static private Pattern word;
     @Nullable private String literal;
     @NotNull private Context context;
 
     static {
-        word = Pattern.compile("\\s*\"(\\\\\"|[^\\\\\"])+\"\\s*");
+        word = Pattern.compile("\\s*\"(\\\\\"|[^\\\\\"])*\"\\s*");
     }
 
     public DoubleQuotesRule(@NotNull Context context) {

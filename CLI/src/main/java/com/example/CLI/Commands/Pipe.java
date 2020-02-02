@@ -12,10 +12,10 @@ import java.io.IOException;
 public class Pipe implements Operation {
 
     @NotNull private Informant informant;
-    @NotNull private Command from;
-    @NotNull private Command to;
+    @NotNull private Operation from;
+    @NotNull private Operation to;
 
-    public Pipe(@NotNull Command from, @NotNull Command to, @NotNull Informant informant) {
+    public Pipe(@NotNull Operation from, @NotNull Operation to, @NotNull Informant informant) {
         this.from = from;
         this.to = to;
         this.informant = informant;

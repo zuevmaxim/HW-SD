@@ -29,8 +29,12 @@ public class Echo implements Command {
             }
             errors.addAll(result.getErrors());
         }
+        var string = output.toString();
+        if (string.length() > 0) {
+            string = string.substring(0, string.length() - 1);
+        }
 
-        return new Result(new ArrayList<>(Collections.singletonList(output.toString())), errors);
+        return new Result(new ArrayList<>(Collections.singletonList(string)), errors);
     }
 
     @Override

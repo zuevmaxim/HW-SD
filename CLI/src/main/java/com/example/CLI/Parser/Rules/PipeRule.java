@@ -1,6 +1,5 @@
 package com.example.CLI.Parser.Rules;
 
-import com.example.CLI.Commands.Command;
 import com.example.CLI.Commands.Operation;
 import com.example.CLI.Commands.Pipe;
 import com.example.CLI.Environment.Informant;
@@ -75,6 +74,6 @@ public class PipeRule implements Rule {
     @NotNull
     @Override
     public Operation createOperation(ArrayList<Operation> args) {
-        return new Pipe((Command) args.get(0), (Command) args.get(1), informant);
+        return new Pipe(args.get(0), args.get(1), informant);
     }
 }

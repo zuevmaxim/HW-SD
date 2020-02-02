@@ -17,12 +17,12 @@ public class CommandRule implements Rule {
     @NotNull private Context context;
     @NotNull private Informant informant;
     protected static final String regex =
-            "\\s*([\\w./+=()*~$\\-]+|'[^']+'|\"(\\\\\"|[^\\\\\"])+\")" +
-            "(\\s+([\\w./+=()*~$\\-]+|'[^']+'|\"(\\\\\"|[^\\\\\"])+\"))*\\s*";
+            "\\s*([\\w./+=()*~$\\-]+|'[^']*'|\"(\\\\\"|[^\\\\\"])*\")" +
+            "(\\s+([\\w./+=()*~$\\-]+|'[^']*'|\"(\\\\\"|[^\\\\\"])*\"))*\\s*";
     @NotNull static private Pattern word;
 
     static {
-        word = Pattern.compile("[\\w./+=()*~$\\-]+|'[^']+'|\"(\\\\\"|[^\\\\\"])+\"");
+        word = Pattern.compile("[\\w./+=()*~$\\-]+|'[^']*'|\"(\\\\\"|[^\\\\\"])*\"");
     }
 
     public CommandRule(@NotNull Context context, @NotNull Informant informant) {
