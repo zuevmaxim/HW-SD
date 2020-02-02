@@ -4,4 +4,5 @@ os:
 jdk:
 - oraclejdk11
 env:
+- PROJECT_DIR=CLI
 script: cd $PROJECT_DIR && ./gradlew check
