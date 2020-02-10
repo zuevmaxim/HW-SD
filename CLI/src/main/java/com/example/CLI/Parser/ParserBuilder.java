@@ -19,6 +19,7 @@ public class ParserBuilder {
     public static Parser createParser() {
         var commands = new HashMap<String, Supplier<Command>>();
         var informant = new SimpleInformant();
+        commands.put("grep", () -> new Grep(informant));
         commands.put("echo", Echo::new);
         commands.put("cat", () -> new Cat(informant));
         commands.put("pwd", Pwd::new);
