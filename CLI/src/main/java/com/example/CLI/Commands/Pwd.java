@@ -11,12 +11,16 @@ import java.util.Collections;
 public class Pwd implements Command {
     @Override
     public Result execute() {
-        var dir = System.getProperty("user.dir");
+        var dir = currentDirectory();
         return new Result(new ArrayList<>(Collections.singletonList(dir)), new ArrayList<>());
     }
 
     @Override
     public void setArgs(@NotNull ArrayList<Operation> args) {
         // Useless for this particular command.
+    }
+
+    public static String currentDirectory() {
+        return System.getProperty("user.dir");
     }
 }
