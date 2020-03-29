@@ -65,7 +65,8 @@ public class External implements Command, Informed {
             }
             result.addErrors(result.getErrors());
         }
-        var processBuilder = new ProcessBuilder(command);
+        var processBuilder = new ProcessBuilder(command)
+                .directory(new File(Pwd.currentDirectory()));
 
         if (connections.size() > 0) {
             try {

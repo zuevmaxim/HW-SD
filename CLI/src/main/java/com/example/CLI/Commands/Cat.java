@@ -2,6 +2,7 @@ package com.example.CLI.Commands;
 
 import com.example.CLI.Environment.Informant;
 import com.example.CLI.Environment.Informed;
+import com.example.CLI.PathUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
@@ -36,7 +37,8 @@ public class Cat implements Command, Informed {
                 errors.addAll(result.getErrors());
                 for (var file: result.getOutput()) {
                     try {
-                        var scanner = new Scanner(new ByteArrayInputStream(informant.getAndClose(file)));
+                        var name = PathUtils.pathToAbsolute(file);
+                        var scanner = new Scanner(new ByteArrayInputStream(informant.getAndClose(name)));
                         while (scanner.hasNext()) {
                             output.add(scanner.nextLine());
                         }

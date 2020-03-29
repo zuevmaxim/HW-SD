@@ -52,4 +52,25 @@ class CdTest {
         assertTrue(files.contains("main"));
         assertTrue(files.contains("test"));
     }
+
+    @Test
+    void cdAndLs() throws IOException {
+        final var command = new Cd();
+        final var args = new ArrayList<Operation>();
+        args.add(new Literal("src"));
+        command.setArgs(args);
+        command.execute();
+        final var files = Ls.listDirectoryContents("main");
+        assertTrue(files.contains("java"));
+    }
+
+    @Test
+    void cdToIllegalDirectory() {
+        final var command = new Cd();
+        final var args = new ArrayList<Operation>();
+        args.add(new Literal("sr"));
+        command.setArgs(args);
+        var result = command.execute();
+        assertEquals(1, result.getErrors().size());
+    }
 }

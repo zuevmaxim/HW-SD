@@ -1,5 +1,6 @@
 package com.example.CLI.Commands;
 
+import com.example.CLI.PathUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -57,7 +58,7 @@ public class Ls implements Command {
      * @throws IOException если переданный путь к директории невалидный
      */
     public static List<String> listDirectoryContents(@NotNull String directory) throws IOException {
-        return Files.list(new File(directory).toPath())
+        return Files.list(new File(PathUtils.pathToAbsolute(directory)).toPath())
                 .map(path -> path.getFileName().toString())
                 .collect(Collectors.toList());
     }

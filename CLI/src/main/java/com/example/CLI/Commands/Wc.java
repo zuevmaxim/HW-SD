@@ -2,6 +2,7 @@ package com.example.CLI.Commands;
 
 import com.example.CLI.Environment.Informant;
 import com.example.CLI.Environment.Informed;
+import com.example.CLI.PathUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
@@ -41,7 +42,8 @@ public class Wc implements Command, Informed {
 
                 for (var file: result.getOutput()) {
                     try {
-                        var bytes = informant.getAndClose(file);
+                        var name = PathUtils.pathToAbsolute(file);
+                        var bytes = informant.getAndClose(name);
                         var scanner = new Scanner(new ByteArrayInputStream(bytes));
 
                         int lines = 0;
